@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-02-01T21:02:23.748955",
+  "name": "baseline_20260201_210223",
+  "system": {
+    "cpu": {
+      "load_1min": 0.04,
+      "cores": 8,
+      "usage_percent": 2
+    },
+    "memory": {
+      "total_mb": 3820,
+      "used_mb": 495,
+      "free_mb": 3214,
+      "available_mb": 3324,
+      "usage_percent": 12.96
+    },
+    "disk": {
+      "total": "1007G",
+      "used": "2.4G",
+      "available": "954G",
+      "usage_percent": 1
+    }
+  },
+  "services": {
+    "active_count": 17,
+    "active_services": [
+      "atd.service",
+      "console-getty.service",
+      "cron.service",
+      "getty@tty1.service",
+      "polkit.service",
+      "rsyslog.service",
+      "unattended-upgrades.service",
+      "user@1000.service",
+      "wpa_supplicant.service",
+      "wsl-pro.service"
+    ]
+  },
+  "users": {
+    "logged_in_count": 1
+  },
+  "security": {
+    "ssh_root_login": "unknown",
+    "ssh_password_auth": "unknown"
+  }
+}

@@ -1,0 +1,14 @@
+# Python dependencies for AI-Assisted Linux Server Health & Log Analyzer
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# LLM API clients (install only the one you need)
+# For Google Gemini
+google-generativeai>=0.3.0
+
+# For OpenAI (optional)
+# openai>=1.0.0
+
+# For Anthropic (optional)
+# anthropic>=0.18.0
