@@ -1,15 +1,70 @@
 # AI-Assisted Linux Server Health & Log Analyzer
 
-A read-only Linux system administration tool that audits basic server health, analyzes important system logs, and generates intelligent explanations and recommendations using an LLM API.
+A comprehensive Linux system administration tool that provides both traditional audit capabilities and an **interactive natural language shell** for real-time system monitoring, security auditing, and intelligent recommendations using AI.
 
 ## Project Evolution
 
-This tool evolved from a simple CPU monitoring script into a comprehensive system auditing tool. The original CPU collection logic was preserved and enhanced, then expanded with additional system metrics, security checks, log analysis, and AI-powered recommendations.
+This tool evolved from a simple CPU monitoring script into a comprehensive system auditing tool with an interactive shell interface.
 
 **Original State:** Single Python script displaying CPU usage percentage  
-**Current State:** Modular CLI tool with health monitoring, security auditing, log analysis, and AI integration
+**Current State:** 
+- Modular CLI tool with health monitoring, security auditing, log analysis, and AI integration
+- **Interactive Shell** with natural language commands for real-time monitoring and analysis
+- Advanced features including predictive analytics, multi-node monitoring, and automated remediation
 
 See `PROJECT_EVOLUTION.md` for detailed evolution documentation.
+
+## Key Features
+
+### Traditional CLI Auditing
+- System health monitoring (CPU, memory, disk)
+- Security configuration analysis (SSH, firewall)
+- Log analysis and pattern detection
+- Baseline comparison and trend analysis
+- AI-powered recommendations
+
+### Interactive Shell ⭐ NEW
+An intelligent command interface that accepts natural language queries:
+- **Real-time monitoring**: Monitor logs, CPU, memory, disk, and network activity as they happen
+- **Security auditing**: Check firewall rules, scan vulnerabilities, monitor file integrity
+- **Predictive analytics**: Analyze trends in resource usage
+- **Multi-node monitoring**: Monitor cluster nodes simultaneously
+- **Automated remediation**: Restart failed services, terminate high-CPU processes
+- **Advanced reporting**: Export reports in multiple formats (JSON, CSV, PDF)
+- **User management**: Role-based access control (RBAC)
+- **Plugin system**: Extend functionality with custom plugins
+- **Real-time visualization**: Interactive graphs for resource usage
+- **Backup & restore**: Configuration management
+- **AI insights**: Get intelligent recommendations on-demand
+
+## Updated Features
+
+### User Management
+- Add, remove, and list users.
+- Role-based access control (RBAC).
+
+### System Health Check
+- Run a comprehensive health check for CPU, memory, disk, and network.
+- Display a detailed system health report.
+
+### Plugin Management
+- Load, unload, and update plugins dynamically.
+- List all currently loaded plugins.
+
+### Backup Management
+- List all available backups.
+- Delete specific backups.
+
+### Language Support
+- Set the language for the interactive shell (supports `en`, `es`, `fr`).
+- Future support for additional languages.
+
+### Enhanced Commands
+- **Disk Usage**: Fetch detailed disk usage metrics.
+- **Firewall Check**: Display and manage firewall rules.
+- **Vulnerability Scan**: Scan for vulnerabilities using `nmap`.
+- **Log Monitoring**: Monitor logs with real-time updates.
+- **Visualization**: Generate interactive graphs for resource usage.
 
 ## Project Purpose
 
@@ -63,11 +118,18 @@ The tool uses predefined rules to assess severity:
 
 ## Requirements
 
-- **Operating System**: Linux (Ubuntu/Debian preferred)
+- **Operating System**: Linux (Ubuntu/Debian preferred, works in WSL on Windows)
 - **Python**: Python 3.6 or higher
 - **Bash**: Standard bash shell
 - **Permissions**: Read access to system logs (may require sudo for some log files)
 - **Optional**: LLM API key for AI recommendations (Gemini, OpenAI, or Anthropic)
+
+### Python Dependencies
+- `python-dotenv` - Environment variable management
+- `google-generativeai` - Google Gemini API (or `openai`/`anthropic` for alternatives)
+- `psutil` - System monitoring
+- `watchdog` - Real-time file monitoring
+- `matplotlib` - Data visualization
 
 ## Installation
 
@@ -112,60 +174,121 @@ export LLM_PROVIDER="gemini"
 export OPENAI_API_KEY="your-api-key-here"
 export LLM_PROVIDER="openai"
 
-# For Anthropic
-export ANTHROPIC_API_KEY="your-api-key-here"
-export LLM_PROVIDER="anthropic"
-```
+# FoInteractive Shell (Recommended)
 
-## Usage
-
-### Basic Usage
-
-Run the analyzer with default settings (includes all checks):
-```bash
-python analyzer.py
-```
-
-### CLI Options
+Launch the interactive shell for natural language queries:
 
 ```bash
-python analyzer.py [OPTIONS]
+python interactive_shell.py
 ```
 
-**Options:**
-- `--summary`: Display terminal summary only (default behavior)
-- `--full-report`: Generate markdown report file (`report.md`)
-- `--logs`: Include log analysis (enabled by default)
-- `--health`: Include health analysis (enabled by default)
+Once in the shell, you can use natural language commands:
 
-### Examples
+```
+> show cpu usage
+> show system logs
+> monitor logs
+> check firewall
+> scan vulnerabilities
+> predict cpu trends
+> monitor cluster
+> restart failed services
+> export report
+> send alert
+> visualize cpu usage
+> get ai recommendations
+> help
+> exit
+```
 
-**Terminal summary only:**
+**Example Session:**
+```
+Welcome to the Interactive Shell! Type 'help' for available commands.
+
+> show cpu usage
+Fetching CPU usage...
+CPU Load Average: 0.45
+CPU Usage: 23.4%
+
+> monitor logs
+Enter the path to the log file to monitor: /var/log/auth.log
+Monitoring log file: /var/log/auth.log
+[Real-time log entries displayed here...]
+Press Ctrl+C to stop monitoring
+
+> get ai recommendations
+Fetching AI-powered recommendations...
+Recommendations:
+- Optimize CPU-intensive processes.
+- Schedule regular system audits.
+```
+
+### Traditional CLI Auditing
+
+Run the analyzer with command-line options:
+
 ```bash
-python analyzer.py --summary
+# Basic audit
+python analyzer_new.py audit
+
+# Full audit with process snapshot
+python analyzer_new.py audit --full
+
+# Export to JSON
+python analyzer_new.py audit --json
+
+# Save/compare baseline
+python analyzer_new.py baseline save
+python analyzer_new.py baseline compare
 ```
 
-**Generate full report with AI recommendations:**
+### WSL Usage
+
+On Windows with WSL:
+
 ```bash
-python analyzer.py --full-report
-```
+# Open WSL terminal
+wsl
 
-**Health check only (no logs):**
+# Navigate to project
+cd /mnt/c/Users/user/SNA
+
+# Run interactive shell
+python3 interactive_shell.py
+
+# Or run traditional audit
+python3 analyzer_new.py audit
 ```bash
 python analyzer.py --health --no-logs
 ```
 
 **Log analysis only:**
-```bash
-python analyzer.py --logs --no-health
-```
-
-## Sample Output
-
-### Terminal Summary
-
-```
-============================================================
+SNA/
+├── bash/                           # System data collection scripts
+│   ├── system_health.sh            # CPU, memory, disk collection
+│   ├── users_services.sh           # Users and services collection
+│   ├── ssh_check.sh                # SSH configuration checks
+│   └── log_extract.sh              # Log extraction
+├── sna/                            # Main Python package
+│   ├── baseline/                   # Baseline management
+│   │   └── baseline_manager.py
+│   ├── core/                       # Core analysis modules
+│   │   ├── logs.py                 # Log analysis
+│   │   ├── processes.py            # Process monitoring
+│   │   ├── recommendations.py      # Recommendations engine
+│   │   ├── scoring.py              # Risk scoring
+│   │   ├── security.py             # Security checks
+│   │   └── system_health.py        # Health monitoring
+│   └── utils/                      # Utility modules
+│       ├── command_runner.py       # Command execution
+│       ├── os_detect.py            # OS detection
+│       └── output.py               # Output formatting
+├── interactive_shell.py            # Interactive natural language shell ⭐
+├── analyzer_new.py                 # Modern CLI analyzer
+├── analyzer.py                     # Legacy analyzer (backup)
+├── ai_engine.py                    # LLM integration module
+├── requirements.txt                # Python dependencies
+└── README.md     ===============================================
 Linux Server Health & Security Analysis
 ============================================================
 Analysis Date: 2024-01-15 14:30:22
